@@ -37,7 +37,7 @@ const featuredOtherGames = [
 ];
 
 const otherHostings = [
-    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/fotky/teamspeak.webp" },
+    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/fotky/ts.webp" },
     { name: "Discord Bot", price: 2.00, slug: "discord", logoUrl: "/fotky/discord.webp" },
 ];
 

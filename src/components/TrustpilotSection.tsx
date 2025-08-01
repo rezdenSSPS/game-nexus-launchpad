@@ -49,7 +49,6 @@ export const TrustpilotSection = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {/* Zde jsme změnili "Happy Customers" na něco jiného */}
             <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-lg border border-primary/30 transform transition-transform hover:scale-105 hover:shadow-glow-primary">
               <div className="text-3xl font-bold text-primary">50,000+</div>
               <div className="text-sm text-muted-foreground mt-1">Hosted Servers</div>
@@ -64,7 +63,6 @@ export const TrustpilotSection = () => {
             </div>
           </div>
           
-          {/* Tlačítko teď scrolluje na sekci her */}
           <Button 
             size="lg"
             onClick={scrollToGames}
@@ -76,5 +74,4 @@ export const TrustpilotSection = () => {
       </div>
     </section>
   );
-};```
-
+};

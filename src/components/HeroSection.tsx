@@ -45,21 +45,46 @@ export const HeroSection = () => {
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent animate-fade-in">
-            Ultimate Game Hosting
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+            MINECRAFT SERVER HOSTING
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2">
-            Minecraft, FiveM, Arma & More!
-          </p>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8">
-            Instant setup, 24/7 support, and lag-free performance. Pick your plan and play!
-          </p>
+          <div className="text-3xl md:text-4xl font-bold mb-8 text-white">
+            AND 80+ TOP ONLINE GAMES
+          </div>
+          
+          {/* Feature List */}
+          <div className="text-left max-w-2xl mx-auto mb-8 space-y-3">
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>Server hosting for 80+ games</span>
+            </div>
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>Pre-install 2,000+ Minecraft modpacks automatically</span>
+            </div>
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>24/7/365 support troubleshooting your server and mods</span>
+            </div>
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>Full file access</span>
+            </div>
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>20 Locations across the globe</span>
+            </div>
+            <div className="flex items-center text-primary">
+              <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+              <span>Advanced DDOS protection</span>
+            </div>
+          </div>
           
           <Button 
             size="lg" 
             className="bg-gradient-primary hover:shadow-glow-primary transition-all duration-300 text-lg px-8 py-6"
           >
-            View Plans ({currencies[currency].symbol})
+            CREATE SERVER
           </Button>
         </div>
 

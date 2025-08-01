@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "gameHostings": "Spiele-Hosting",
+    "otherHostings": "Anderes Hosting",
+    "info": "Info",
+    "support": "Support",
+    "login": "Anmelden",
+    "signUp": "Registrieren"
+  },
+  "hero": {
+    "mainTitle": "SPIELESERVER-HOSTING",
+    "subtitle": "FÜR 80+ TOP ONLINE-SPIELE",
+    "createServer": "SERVER ERSTELLEN"
+  }
+}

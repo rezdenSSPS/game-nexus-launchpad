@@ -78,11 +78,3 @@ export const TrustpilotSection = () => {
   );
 };```
 
-### Shrnutí změn:
-
-1.  **Odstraněno "Happy Customers":** V první kartě se statistikou jsem změnil text `Happy Customers` na `Hosted Servers`. Nyní to dává větší smysl a neopakuje se to.
-2.  **Doplněn text "Expert Support":** U karty `24/7` jsem doplnil text na `Expert Support`, aby bylo jasné, čeho se to týká.
-3.  **Vylepšené zobrazení hvězdiček:** Upravil jsem kód pro zobrazení hvězdiček, aby lépe a přesněji reprezentoval hodnocení 4.8 z 5.
-4.  **Funkce tlačítka zachována:** Tlačítko stále odkazuje na sekci s hrami.
-
-Po uložení a nahrání změn bude sekce vypadat přesně tak, jak jste si přál.

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn, Globe } from "lucide-react";
+import { ChevronDown, User, LogIn } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +14,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/context/CurrencyContext";
-
-const languages = {
-  EN: "English",
-  DE: "Deutsch",
-};
 
 const gameHostings = [
     { name: "Minecraft", price: 2.00, slug: "minecraft" },
@@ -39,15 +33,10 @@ const otherGames = [
 
 export const Navigation = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useCurrency();
 
   const handleGameClick = (slug: string) => {
     navigate(`/game/${slug}`);
-  };
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
   };
   
   const getConvertedPrice = (basePrice: number) => {
@@ -70,7 +59,7 @@ export const Navigation = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">
-                {t('nav.gameHostings')}
+                Game Hostings
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="p-6 w-[800px] bg-gradient-to-br from-card to-muted/50">
@@ -106,7 +95,7 @@ export const Navigation = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.otherHostings')}</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Other Hostings</NavigationMenuTrigger>
                 <NavigationMenuContent>
                     <div className="p-4 w-[200px]">
                         <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -115,7 +104,7 @@ export const Navigation = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.info')}</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Info</NavigationMenuTrigger>
                 <NavigationMenuContent>
                     <div className="p-4 w-[200px]">
                         <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -124,7 +113,7 @@ export const Navigation = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.support')}</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Support</NavigationMenuTrigger>
                 <NavigationMenuContent>
                     <div className="p-4 w-[200px]">
                         <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -136,27 +125,6 @@ export const Navigation = () => {
         </NavigationMenu>
 
         <div className="flex items-center space-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary">
-                <Globe className="h-4 w-4" />
-                <span>{i18n.language.toUpperCase()}</span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-card border-primary/30">
-              {Object.entries(languages).map(([code, name]) => (
-                <DropdownMenuItem
-                  key={code}
-                  onClick={() => changeLanguage(code)}
-                  className="hover:bg-primary/10"
-                >
-                  {name}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary">
@@ -185,7 +153,7 @@ export const Navigation = () => {
               onClick={() => window.open('https://stingerhost.eu/auth/login', '_blank')}
             >
               <LogIn className="h-4 w-4" />
-              <span>{t('nav.login')}</span>
+              <span>Login</span>
             </Button>
             <Button 
               size="sm"
@@ -193,7 +161,7 @@ export const Navigation = () => {
               onClick={() => window.open('https://stingerhost.eu/auth/register', '_blank')}
             >
               <User className="h-4 w-4" />
-              <span>{t('nav.signUp')}</span>
+              <span>Sign Up</span>
             </Button>
           </div>
         </div>

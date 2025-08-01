@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn } from "lucide-react";
+import { ChevronDown, User, LogIn, Globe } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,29 +14,41 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/context/CurrencyContext";
 
+const languages = {
+  EN: "English",
+  DE: "Deutsch",
+};
+
+// PŘIDALI JSME VLASTNOST 'logoUrl'
 const gameHostings = [
-    { name: "Minecraft", price: 2.00, slug: "minecraft" },
-    { name: "FiveM", price: 6.00, slug: "fivem" },
-    { name: "Rust", price: 4.00, slug: "rust" },
+    { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/logos/minecraft.png" },
+    { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/logos/fivem.png" },
+    { name: "Rust", price: 4.00, slug: "rust", logoUrl: "/logos/rust.png" },
 ];
   
 const otherGames = [
-    { name: "Arma 3", price: 5.00, slug: "arma3" },
-    { name: "DayZ", price: 4.50, slug: "dayz" },
-    { name: "Palworld", price: 3.50, slug: "palworld" },
-    { name: "Valheim", price: 3.00, slug: "valheim" },
-    { name: "Terraria", price: 2.50, slug: "terraria" },
-    { name: "ARK", price: 5.50, slug: "ark" },
+    { name: "Arma 3", price: 5.00, slug: "arma3", logoUrl: "/logos/arma3.png" },
+    { name: "DayZ", price: 4.50, slug: "dayz", logoUrl: "/logos/dayz.png" },
+    { name: "Palworld", price: 3.50, slug: "palworld", logoUrl: "/logos/palworld.png" },
+    { name: "Valheim", price: 3.00, slug: "valheim", logoUrl: "/logos/valheim.png" },
+    { name: "Terraria", price: 2.50, slug: "terraria", logoUrl: "/logos/terraria.png" },
+    { name: "ARK", price: 5.50, slug: "ark", logoUrl: "/logos/ark.png" },
 ];
 
 export const Navigation = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useCurrency();
 
   const handleGameClick = (slug: string) => {
     navigate(`/game/${slug}`);
+  };
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
   };
   
   const getConvertedPrice = (basePrice: number) => {
@@ -65,28 +77,34 @@ export const Navigation = () => {
                 <div className="p-6 w-[800px] bg-gradient-to-br from-card to-muted/50">
                   <h3 className="text-lg font-bold text-primary mb-4">Popular Games</h3>
                   <div className="grid grid-cols-3 gap-4 mb-6">
-                    {gameHostings.map((game, index) => (
+                    {gameHostings.map((game) => (
                       <div 
-                        key={index} 
-                        className="flex flex-col p-4 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20"
+                        key={game.slug} 
+                        className="flex items-center p-3 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20"
                         onClick={() => handleGameClick(game.slug)}
                       >
-                        <span className="font-semibold text-foreground">{game.name}</span>
-                        <span className="text-primary font-bold">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/month</span>
+                        <img src={game.logoUrl} alt={`${game.name} logo`} className="h-8 w-8 mr-4" />
+                        <div>
+                          <span className="font-semibold text-foreground">{game.name}</span>
+                          <p className="text-primary font-bold text-sm">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/month</p>
+                        </div>
                       </div>
                     ))}
                   </div>
                   
                   <h3 className="text-lg font-bold text-accent mb-4">Other Games</h3>
                   <div className="grid grid-cols-4 gap-3">
-                    {otherGames.map((game, index) => (
-                      <div 
-                        key={index} 
-                        className="flex flex-col p-3 hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-accent/20"
+                    {otherGames.map((game) => (
+                       <div 
+                        key={game.slug} 
+                        className="flex items-center p-2 hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-accent/20"
                         onClick={() => handleGameClick(game.slug)}
                       >
-                        <span className="text-sm font-medium text-foreground">{game.name}</span>
-                        <span className="text-accent font-bold text-sm">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/mo</span>
+                        <img src={game.logoUrl} alt={`${game.name} logo`} className="h-6 w-6 mr-3" />
+                        <div>
+                          <span className="text-sm font-medium text-foreground">{game.name}</span>
+                          <p className="text-accent font-bold text-xs">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/mo</p>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -96,29 +114,15 @@ export const Navigation = () => {
 
             <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Other Hostings</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                    <div className="p-4 w-[200px]">
-                        <p className="text-sm text-muted-foreground">Coming soon...</p>
-                    </div>
-                </NavigationMenuContent>
+                <NavigationMenuContent><div className="p-4 w-[200px]"><p className="text-sm text-muted-foreground">Coming soon...</p></div></NavigationMenuContent>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Info</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                    <div className="p-4 w-[200px]">
-                        <p className="text-sm text-muted-foreground">Coming soon...</p>
-                    </div>
-                </NavigationMenuContent>
+                <NavigationMenuContent><div className="p-4 w-[200px]"><p className="text-sm text-muted-foreground">Coming soon...</p></div></NavigationMenuContent>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Support</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                    <div className="p-4 w-[200px]">
-                        <p className="text-sm text-muted-foreground">Coming soon...</p>
-                    </div>
-                </NavigationMenuContent>
+                <NavigationMenuContent><div className="p-4 w-[200px]"><p className="text-sm text-muted-foreground">Coming soon...</p></div></NavigationMenuContent>
             </NavigationMenuItem>
 
           </NavigationMenuList>
@@ -126,43 +130,17 @@ export const Navigation = () => {
 
         <div className="flex items-center space-x-4">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary">
-                <span>{selectedCurrency.code}</span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild><Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary"><span>{selectedCurrency.code}</span><ChevronDown className="h-4 w-4" /></Button></DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-card border-primary/30">
               {Object.values(availableCurrencies).map((currency) => (
-                <DropdownMenuItem
-                  key={currency.code}
-                  onClick={() => setSelectedCurrency(currency.code)}
-                  className="hover:bg-primary/10"
-                >
-                  {currency.code} ({currency.symbol})
-                </DropdownMenuItem>
+                <DropdownMenuItem key={currency.code} onClick={() => setSelectedCurrency(currency.code)} className="hover:bg-primary/10">{currency.code} ({currency.symbol})</DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className="flex items-center space-x-2 hover:bg-primary/10 hover:text-primary"
-              onClick={() => window.open('https://stingerhost.eu/auth/login', '_blank')}
-            >
-              <LogIn className="h-4 w-4" />
-              <span>Login</span>
-            </Button>
-            <Button 
-              size="sm"
-              className="flex items-center space-x-2 bg-gradient-primary hover:shadow-glow-primary"
-              onClick={() => window.open('https://stingerhost.eu/auth/register', '_blank')}
-            >
-              <User className="h-4 w-4" />
-              <span>Sign Up</span>
-            </Button>
+            <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-primary/10 hover:text-primary" onClick={() => window.open('https://stingerhost.eu/auth/login', '_blank')}><LogIn className="h-4 w-4" /><span>Login</span></Button>
+            <Button size="sm" className="flex items-center space-x-2 bg-gradient-primary hover:shadow-glow-primary" onClick={() => window.open('https://stingerhost.eu/auth/register', '_blank')}><User className="h-4 w-4" /><span>Sign Up</span></Button>
           </div>
         </div>
       </div>

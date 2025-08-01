@@ -69,7 +69,7 @@ export const MainGamesSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-card/30 to-background">
+    <section id="main-games-section" className="py-20 bg-gradient-to-br from-background via-card/30 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">

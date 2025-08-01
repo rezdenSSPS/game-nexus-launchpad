@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn, Globe } from "lucide-react";
+import { ChevronDown, User, LogIn } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,15 +14,9 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/context/CurrencyContext";
 
-const languages = {
-  EN: "English",
-  DE: "Deutsch",
-};
-
-// PŘIDALI JSME VLASTNOST 'logoUrl'
+// Data pro dropdowny
 const gameHostings = [
     { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/logos/minecraft.png" },
     { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/logos/fivem.png" },
@@ -40,15 +34,11 @@ const otherGames = [
 
 export const Navigation = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  // Využíváme pouze kontext pro měny
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useCurrency();
 
   const handleGameClick = (slug: string) => {
     navigate(`/game/${slug}`);
-  };
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
   };
   
   const getConvertedPrice = (basePrice: number) => {
@@ -129,18 +119,46 @@ export const Navigation = () => {
         </NavigationMenu>
 
         <div className="flex items-center space-x-4">
+          {/* Currency Switcher */}
           <DropdownMenu>
-            <DropdownMenuTrigger asChild><Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary"><span>{selectedCurrency.code}</span><ChevronDown className="h-4 w-4" /></Button></DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="flex items-center space-x-2 border-primary/30 hover:border-primary">
+                <span>{selectedCurrency.code}</span>
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-card border-primary/30">
               {Object.values(availableCurrencies).map((currency) => (
-                <DropdownMenuItem key={currency.code} onClick={() => setSelectedCurrency(currency.code)} className="hover:bg-primary/10">{currency.code} ({currency.symbol})</DropdownMenuItem>
+                <DropdownMenuItem
+                  key={currency.code}
+                  onClick={() => setSelectedCurrency(currency.code)}
+                  className="hover:bg-primary/10"
+                >
+                  {currency.code} ({currency.symbol})
+                </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Auth Buttons */}
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-primary/10 hover:text-primary" onClick={() => window.open('https://stingerhost.eu/auth/login', '_blank')}><LogIn className="h-4 w-4" /><span>Login</span></Button>
-            <Button size="sm" className="flex items-center space-x-2 bg-gradient-primary hover:shadow-glow-primary" onClick={() => window.open('https://stingerhost.eu/auth/register', '_blank')}><User className="h-4 w-4" /><span>Sign Up</span></Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className="flex items-center space-x-2 hover:bg-primary/10 hover:text-primary"
+              onClick={() => window.open('https://stingerhost.eu/auth/login', '_blank')}
+            >
+              <LogIn className="h-4 w-4" />
+              <span>Login</span>
+            </Button>
+            <Button 
+              size="sm"
+              className="flex items-center space-x-2 bg-gradient-primary hover:shadow-glow-primary"
+              onClick={() => window.open('https://stingerhost.eu/auth/register', '_blank')}
+            >
+              <User className="h-4 w-4" />
+              <span>Sign Up</span>
+            </Button>
           </div>
         </div>
       </div>

@@ -2,30 +2,13 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-// We'll store our translations in JSON files
+// Importujeme překlady přímo z JSON souborů
 import enTranslations from "./locales/en.json";
 import deTranslations from "./locales/de.json";
 
 i18n
-  // Detect user language
+  // Tento plugin detekuje jazyk nastavený v prohlížeči uživatele
   .use(LanguageDetector)
-  // Pass the i18n instance to react-i18next.
+  // Tímto propojíme i18next s Reactem
   .use(initReactI18next)
-  // Init i18next
-  .init({
-    debug: true, // Set to false in production
-    fallbackLng: "EN",
-    interpolation: {
-      escapeValue: false, // React already safes from xss
-    },
-    resources: {
-      EN: {
-        translation: enTranslations,
-      },
-      DE: {
-        translation: deTranslations,
-      },
-    },
-  });
-
-export default i18n;
+  // Zde inicializujeme a konfigurujeme i18

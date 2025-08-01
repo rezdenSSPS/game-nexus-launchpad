@@ -35,12 +35,6 @@ const otherGames = [
     { name: "Valheim", price: 3.00, slug: "valheim" },
     { name: "Terraria", price: 2.50, slug: "terraria" },
     { name: "ARK", price: 5.50, slug: "ark" },
-    { name: "Team Fortress 2", price: 3.00, slug: "tf2" },
-    { name: "7 Days to Die", price: 4.00, slug: "7days" },
-    { name: "Sons of the Forest", price: 4.50, slug: "forest" },
-    { name: "SA:MP", price: 2.00, slug: "samp" },
-    { name: "Counter-Strike 2", price: 3.50, slug: "cs2" },
-    { name: "Garry's Mod", price: 3.00, slug: "gmod" },
 ];
 
 export const Navigation = () => {
@@ -110,6 +104,34 @@ export const Navigation = () => {
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
+
+            <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.otherHostings')}</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                    <div className="p-4 w-[200px]">
+                        <p className="text-sm text-muted-foreground">Coming soon...</p>
+                    </div>
+                </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.info')}</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                    <div className="p-4 w-[200px]">
+                        <p className="text-sm text-muted-foreground">Coming soon...</p>
+                    </div>
+                </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+                <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">{t('nav.support')}</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                    <div className="p-4 w-[200px]">
+                        <p className="text-sm text-muted-foreground">Coming soon...</p>
+                    </div>
+                </NavigationMenuContent>
+            </NavigationMenuItem>
+
           </NavigationMenuList>
         </NavigationMenu>
 

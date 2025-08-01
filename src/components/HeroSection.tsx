@@ -24,32 +24,14 @@ export const HeroSection = () => {
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        {/* Currency Switcher */}
-        <div className="absolute top-8 right-8">
-          <div className="flex bg-card border border-border rounded-lg p-1">
-            {Object.keys(currencies).map((curr) => (
-              <button
-                key={curr}
-                onClick={() => setCurrency(curr as keyof typeof currencies)}
-                className={`px-3 py-1 rounded text-sm transition-all ${
-                  currency === curr
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {curr}
-              </button>
-            ))}
-          </div>
-        </div>
 
         {/* Main Content */}
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-            MINECRAFT SERVER HOSTING
+            GAME SERVER HOSTING
           </h1>
           <div className="text-3xl md:text-4xl font-bold mb-8 text-white">
-            AND 80+ TOP ONLINE GAMES
+            FOR 80+ TOP ONLINE GAMES
           </div>
           
           {/* Feature List */}

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn } from "lucide-react";
+import { ChevronDown, User, LogIn, ArrowRight } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,45 +16,37 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCurrency } from "@/context/CurrencyContext";
 
-// --- NOVÁ A KOMPLETNÍ DATA PRO HRY ---
+// --- NOVÁ A SPRÁVNÁ DATA PRO HRY ---
 
-// Skupina 1: Survival & Sandbox hry
-const survivalSandboxGames = [
-    { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/logos/minecraft.webp" },
-    { name: "Rust", price: 4.00, slug: "rust", logoUrl: "/logos/rust.webp" },
-    { name: "Terraria", price: 2.50, slug: "terraria", logoUrl: "/logos/terraria.webp" },
-    { name: "V Rising", price: 4.50, slug: "v-rising", logoUrl: "/logos/v-rising.webp" },
-    { name: "The Forest", price: 4.00, slug: "the-forest", logoUrl: "/logos/the-forest.webp" },
-    { name: "Sons of the Forest", price: 4.50, slug: "sons-of-the-forest", logoUrl: "/logos/sons-of-the-forest.webp" },
-    { name: "Project Zomboid", price: 3.50, slug: "project-zomboid", logoUrl: "/logos/project-zomboid.webp" },
-    { name: "Enshrouded", price: 5.00, slug: "enshrouded", logoUrl: "/logos/enshrouded.webp" },
-    { name: "Minecraft Bedrock", price: 2.00, slug: "minecraft-bedrock-edition", logoUrl: "/logos/minecraft-bedrock-edition.webp" },
+// Tři hlavní hry pro zobrazení nahoře
+const mainGameHostings = [
+    { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/fotky/minecraft.webp" },
+    { name: "DayZ", price: 4.50, slug: "dayz", logoUrl: "/fotky/dayz.webp" },
+    { name: "Arma 3", price: 5.00, slug: "arma-3", logoUrl: "/fotky/arma-3.webp" },
 ];
 
-// Skupina 2: Shooters & Simulator hry
-const shootersSimulatorsGames = [
-    { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/logos/fivem.webp" },
-    { name: "Arma 3", price: 5.00, slug: "arma-3", logoUrl: "/logos/arma-3.webp" },
-    { name: "DayZ", price: 4.50, slug: "dayz", logoUrl: "/logos/dayz.webp" },
-    { name: "Team Fortress 2", price: 3.00, slug: "team-fortress-2", logoUrl: "/logos/team-fortress-2.webp" },
-    { name: "Insurgency: Sandstorm", price: 4.00, slug: "insurgency-sandstorm", logoUrl: "/logos/insurgency-sandstorm.webp" },
-    { name: "Left 4 Dead 2", price: 3.50, slug: "left-4-dead-2", logoUrl: "/logos/left-4-dead-2.webp" },
-    { name: "SA:MP", price: 2.00, slug: "samp", logoUrl: "/logos/samp.webp" },
-    { name: "American Truck Sim", price: 4.00, slug: "american-truck-simulator", logoUrl: "/logos/american-truck-simulator.webp" },
-    { name: "Euro Truck Sim 2", price: 4.00, slug: "euro-truck-simulator-2", logoUrl: "/logos/euro-truck-simulator-2.webp" },
+// Sedm dalších her pro zobrazení v mřížce pod nimi
+const featuredOtherGames = [
+    { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/fotky/fivem.webp" },
+    { name: "Rust", price: 4.00, slug: "rust", logoUrl: "/fotky/rust.webp" },
+    { name: "Palworld", price: 3.50, slug: "palworld", logoUrl: "/fotky/palworld.webp" },
+    { name: "Valheim", price: 3.00, slug: "valheim", logoUrl: "/fotky/valheim.webp" },
+    { name: "Terraria", price: 2.50, slug: "terraria", logoUrl: "/fotky/terraria.webp" },
+    { name: "Sons of the Forest", price: 4.50, slug: "sons-of-the-forest", logoUrl: "/fotky/sons-of-the-forest.webp" },
+    { name: "Team Fortress 2", price: 3.00, slug: "team-fortress-2", logoUrl: "/fotky/team-fortress-2.webp" },
 ];
 
 const otherHostings = [
-    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/logos/teamspeak.webp" },
-    { name: "Discord Bot", price: 2.00, slug: "discord", logoUrl: "/logos/discord.webp" },
+    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/fotky/teamspeak.webp" },
+    { name: "Discord Bot", price: 2.00, slug: "discord", logoUrl: "/fotky/discord.webp" },
 ];
 
 export const Navigation = () => {
   const navigate = useNavigate();
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useCurrency();
 
-  const handleGameClick = (slug: string) => {
-    navigate(`/game/${slug}`);
+  const handleLinkClick = (path: string) => {
+    navigate(path);
   };
   
   const getConvertedPrice = (basePrice: number) => {
@@ -81,35 +73,39 @@ export const Navigation = () => {
                 Game Hostings
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="p-6 w-[900px] grid grid-cols-2 gap-x-8 bg-gradient-to-br from-card to-muted/50">
-                  {/* Levý sloupec */}
-                  <div>
-                    <h3 className="text-lg font-bold text-primary mb-4">Survival & Sandbox</h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {survivalSandboxGames.map((game) => (
-                        <div key={game.slug} className="flex items-center p-2 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20" onClick={() => handleGameClick(game.slug)}>
-                          <img src={game.logoUrl} alt={`${game.name} logo`} className="h-6 w-6 mr-3 rounded-md" />
-                          <div>
-                            <span className="font-semibold text-foreground text-sm">{game.name}</span>
-                            <p className="text-primary font-bold text-xs">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/mo</p>
-                          </div>
+                <div className="p-6 w-[800px] bg-gradient-to-br from-card to-muted/50">
+                  {/* Tři hlavní hry nahoře */}
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    {mainGameHostings.map((game) => (
+                      <div key={game.slug} className="flex items-center p-3 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20" onClick={() => handleLinkClick(`/game/${game.slug}`)}>
+                        <img src={game.logoUrl} alt={`${game.name} logo`} className="h-10 w-10 mr-4 rounded-md" />
+                        <div>
+                          <span className="font-semibold text-foreground">{game.name}</span>
+                          <p className="text-primary font-bold text-sm">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/month</p>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                  {/* Pravý sloupec */}
-                  <div>
-                    <h3 className="text-lg font-bold text-accent mb-4">Shooters & Simulators</h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {shootersSimulatorsGames.map((game) => (
-                         <div key={game.slug} className="flex items-center p-2 hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-accent/20" onClick={() => handleGameClick(game.slug)}>
-                          <img src={game.logoUrl} alt={`${game.name} logo`} className="h-6 w-6 mr-3 rounded-md" />
-                          <div>
-                            <span className="text-sm font-medium text-foreground">{game.name}</span>
-                            <p className="text-accent font-bold text-xs">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/mo</p>
-                          </div>
+                  
+                  {/* Oddělovač */}
+                  <div className="w-full h-px bg-border/50 my-4"></div>
+
+                  {/* Další hry a tlačítko */}
+                  <div className="grid grid-cols-4 gap-3">
+                    {featuredOtherGames.map((game) => (
+                       <div key={game.slug} className="flex items-center p-2 hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-accent/20" onClick={() => handleLinkClick(`/game/${game.slug}`)}>
+                        <img src={game.logoUrl} alt={`${game.name} logo`} className="h-6 w-6 mr-3 rounded-md" />
+                        <div>
+                          <span className="text-sm font-medium text-foreground">{game.name}</span>
+                          <p className="text-accent font-bold text-xs">from {selectedCurrency.symbol}{getConvertedPrice(game.price)}/mo</p>
                         </div>
-                      ))}
+                      </div>
+                    ))}
+                    {/* Tlačítko pro zobrazení všech her */}
+                    <div 
+                        className="flex items-center justify-center p-2 bg-primary/10 hover:bg-primary/20 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20 text-primary font-semibold text-sm" 
+                        onClick={() => handleLinkClick('/games')}>
+                        View All <ArrowRight className="ml-1 h-4 w-4" />
                     </div>
                   </div>
                 </div>
@@ -122,7 +118,7 @@ export const Navigation = () => {
                 <NavigationMenuContent>
                     <div className="p-4 w-[250px] grid gap-2 bg-gradient-to-br from-card to-muted/50">
                         {otherHostings.map((hosting) => (
-                            <div key={hosting.slug} className="flex items-center p-3 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20" onClick={() => handleGameClick(hosting.slug)}>
+                            <div key={hosting.slug} className="flex items-center p-3 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20" onClick={() => handleLinkClick(`/game/${hosting.slug}`)}>
                                 <img src={hosting.logoUrl} alt={`${hosting.name} logo`} className="h-8 w-8 mr-4 rounded-md" />
                                 <div>
                                     <span className="font-semibold text-foreground">{hosting.name}</span>

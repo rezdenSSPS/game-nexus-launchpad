@@ -59,8 +59,7 @@ export const Navigation = () => {
         <div className="flex items-center space-x-2">
           <img 
             src="/lovable-uploads/e941b86f-eb27-4baa-bdaf-7d47a53819b5.png" 
-            alt="Stingerhost"
-            className="h-8 w-auto cursor-pointer"
+          className="h-8 w-auto cursor-pointer"
             onClick={() => navigate('/')}
           />
         </div>

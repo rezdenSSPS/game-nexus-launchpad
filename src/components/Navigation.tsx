@@ -16,14 +16,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCurrency } from "@/context/CurrencyContext";
 
-// Tři hlavní hry pro zobrazení nahoře
+// Tři hlavní hry
 const mainGameHostings = [
     { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/fotky/minecraft.webp" },
     { name: "DayZ", price: 4.50, slug: "dayz", logoUrl: "/fotky/dayz.webp" },
     { name: "Arma 3", price: 5.00, slug: "arma-3", logoUrl: "/fotky/arma-3.webp" },
 ];
 
-// Sedm dalších her pro zobrazení v mřížce pod nimi
+// Sedm dalších her do mřížky
 const featuredOtherGames = [
     { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/fotky/fivem.webp" },
     { name: "Rust", price: 4.00, slug: "rust", logoUrl: "/fotky/rust.webp" },
@@ -35,7 +35,7 @@ const featuredOtherGames = [
 ];
 
 const otherHostings = [
-    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/fotky/teamspeak.webp" },
+    { name: "TeamSpeak", price: 1.50, slug: "teamspeak", logoUrl: "/fotky/ts.webp" }, // Opraveno na ts.webp
     { name: "Discord Bot", price: 2.00, slug: "discord", logoUrl: "/fotky/discord.webp" },
 ];
 
@@ -65,14 +65,12 @@ export const Navigation = () => {
 
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
-            {/* Game Hostings Dropdown */}
             <NavigationMenuItem>
               <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">
                 Game Hostings
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="p-6 w-[800px] bg-gradient-to-br from-card to-muted/50">
-                  {/* Tři hlavní hry nahoře */}
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     {mainGameHostings.map((game) => (
                       <div key={game.slug} className="flex items-center p-3 hover:bg-primary/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20" onClick={() => handleLinkClick(`/game/${game.slug}`)}>
@@ -85,10 +83,8 @@ export const Navigation = () => {
                     ))}
                   </div>
                   
-                  {/* Oddělovač */}
                   <div className="w-full h-px bg-border/50 my-4"></div>
 
-                  {/* Další hry a tlačítko */}
                   <div className="grid grid-cols-4 gap-3">
                     {featuredOtherGames.map((game) => (
                        <div key={game.slug} className="flex items-center p-2 hover:bg-accent/10 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-accent/20" onClick={() => handleLinkClick(`/game/${game.slug}`)}>
@@ -99,7 +95,6 @@ export const Navigation = () => {
                         </div>
                       </div>
                     ))}
-                    {/* Tlačítko pro zobrazení všech her */}
                     <div 
                         className="flex items-center justify-center p-2 bg-primary/10 hover:bg-primary/20 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 border border-primary/20 text-primary font-semibold text-sm" 
                         onClick={() => handleLinkClick('/games')}>
@@ -110,7 +105,6 @@ export const Navigation = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
-            {/* Other Hostings Dropdown */}
             <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Other Hostings</NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -137,7 +131,6 @@ export const Navigation = () => {
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">Support</NavigationMenuTrigger>
                 <NavigationMenuContent><div className="p-4 w-[200px]"><p className="text-sm text-muted-foreground">Coming soon...</p></div></NavigationMenuContent>
             </NavigationMenuItem>
-
           </NavigationMenuList>
         </NavigationMenu>
 

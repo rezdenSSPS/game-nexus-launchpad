@@ -38,26 +38,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Tento useEffect je nejdůležitější. Naslouchá změnám stavu přihlášení.
   useEffect(() => {
     setIsLoading(true);
-    // Získáme aktuální session hned při načtení
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setIsLoading(false);
     });
 
-    // Supabase má listener, který nás informuje o každé změně (přihlášení, odhlášení, atd.)
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setIsLoading(false);
+        
+        // --- NOVÁ LOGIKA PRO VYČIŠTĚNÍ URL ---
+        // Pokud jsme byli právě přesměrováni (po přihlášení) a URL obsahuje '#',
+        // vyčistíme ji, aby se stránka mohla správně znovu vykreslit.
+        if (_event === 'SIGNED_IN' && window.location.hash) {
+          window.history.replaceState(null, '', window.location.pathname);
+        }
+        // ------------------------------------
       }
     );
     
-    // Důležité je listener po sobě uklidit, když komponenta zmizí
     return () => {
       authListener.subscription.unsubscribe();
     };
@@ -74,7 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// Vytvoříme vlastní hook pro snadné použití kontextu
+// Vlastní hook pro použití kontextu
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

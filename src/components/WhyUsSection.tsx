@@ -1,4 +1,4 @@
-import { Shield, Clock, Zap, HardDrive, Cpu, Settings } from "lucide-react";
+import { Shield, Clock, HardDrive, Cpu, Settings } from "lucide-react";
 
 const features = [
   {
@@ -8,8 +8,8 @@ const features = [
   },
   {
     icon: Clock,
-    title: "SUPPORT 24/7",
-    description: "Whether its day or night, our dedicated support team stands ready to assist you with any inquiries or issues you may encounter."
+    title: "24/7 SUPPORT",
+    description: "Whether it's day or night, our dedicated support team stands ready to assist you with any inquiries or issues you may encounter."
   },
   {
     icon: Shield,

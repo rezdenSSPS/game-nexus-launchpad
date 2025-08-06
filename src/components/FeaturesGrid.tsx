@@ -1,41 +1,40 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { MessageSquare, Globe, Shield, Zap, Clock, Headphones } from "lucide-react";
+import { MessageSquare, Shield, Zap, HardDrive, Cpu, Settings } from "lucide-react";
 
 const features = [
   {
-    icon: MessageSquare,
-    title: "24/7/365 SUPPORT",
-    description: "Get the best customer support of any Minecraft server host. Our average support ticket reply time is under 15 minutes. Our passionate specialists will help get your server up and running.",
+    icon: Shield,
+    title: "UPTIME GUARANTEE",
+    description: "Enjoy uninterrupted gaming with our reliable performance and professional infrastructure, built for maximum stability.",
     color: "text-cyan-400"
   },
   {
-    icon: Globe,
-    title: "SERVERS WORLDWIDE FOR LOWER LATENCY", 
-    description: "We offer game server hosting at 20 locations worldwide so that you can have a low latency wherever you're located.",
+    icon: MessageSquare,
+    title: "24/7 SUPPORT",
+    description: "Day or night, our dedicated support team is ready to assist you with any questions or issues you may encounter.",
     color: "text-green-400"
   },
   {
-    icon: Zap,
-    title: "AUTOMATED MODPACK INSTALLATION",
-    description: "Our Minecraft server hosting plans include automatic installation, making modpack server hosting a breeze with hundreds of mods and modpacks just a few clicks away.",
-    color: "text-blue-400"
-  },
-  {
     icon: Shield,
-    title: "DDOS PROTECTION", 
-    description: "All of our gaming servers are outfitted with DDoS protection to help you avoid downtime, including intentional DDoS attacks.",
+    title: "PREMIUM DDOS PROTECTION",
+    description: "Our robust 17 Tbit/s DDoS protection ensures your gaming environment is safe from malicious attacks and downtime.",
     color: "text-purple-400"
   },
   {
-    icon: Globe,
-    title: "FREE DEDICATED SERVER IP",
-    description: "When you choose our premium Minecraft server hosting option, your server is on port 25565 by default, so there's no need to enter extra port numbers after your server IP.",
+    icon: HardDrive,
+    title: "NVME STORAGE",
+    description: "Experience lightning-fast load times and seamless performance with our cutting-edge NVMe storage technology.",
     color: "text-pink-400"
   },
   {
-    icon: Zap,
-    title: "GAME SWAPPING",
-    description: "Want to shake things up? You can swap your server to any of our 80+ covered games anytime, at no extra charge!",
+    icon: Cpu,
+    title: "LATEST GENERATION PROCESSORS",
+    description: "Handle even the most demanding games effortlessly with the unrivaled performance of our Ryzen 7 9700X processors.",
+    color: "text-blue-400"
+  },
+  {
+    icon: Settings,
+    title: "UNIQUE PANEL",
+    description: "Easily control your server with our intuitive panel, featuring installers for plugins, mods, and server versions.",
     color: "text-orange-400"
   }
 ];

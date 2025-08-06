@@ -102,9 +102,10 @@ export const MainGamesSection = () => {
         </div>
 
         <div className="text-center">
-          <Button 
+        <Button 
             size="lg" 
             className="bg-gradient-to-r from-primary to-accent hover:shadow-glow-primary transition-all duration-300 text-lg px-8 py-4 hover:scale-105"
+            onClick={() => navigate('/games')}
           >
             View All Games
           </Button>

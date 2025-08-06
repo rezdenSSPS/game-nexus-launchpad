@@ -7,7 +7,7 @@ import { CurrencyProvider } from "./context/CurrencyContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import GamePage from "./pages/GamePage";
-import AllGamesPage from "./pages/AllGamesPage"; // Import nové stránky
+import AllGamesPage from "./pages/AllGamesPage";
 
 const queryClient = new QueryClient();
 
@@ -20,9 +20,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/games" element={<AllGamesPage />} /> {/* Přidána cesta pro stránku se všemi hrami */}
+            <Route path="/games" element={<AllGamesPage />} />
             <Route path="/game/:slug" element={<GamePage />} />
-            {/* VŠECHNY VLASTNÍ CESTY PŘIDÁVEJTE NAD TENTO ŘÁDEK */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

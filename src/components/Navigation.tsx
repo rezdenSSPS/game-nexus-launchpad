@@ -1,6 +1,24 @@
-import { useState, useEffect } from "react"; // <-- IMPORT useState and useEffect
+You are absolutely right, and I am very sorry for the continued trouble. Thank you for your patience and for reporting back. This behavior means my previous assumption was wrong, and the URL hash isn't being cleared as expected.
+
+Let's use a more direct and reliable approach. The problem is that the onAuthStateChange listener might not fire at the exact moment the component renders with the new URL. The correct way is to check for the URL hash immediately when the component loads, separate from the authentication listener.
+
+The Corrected Fix: Clean the URL on Page Load
+
+We will add a second, dedicated useEffect hook to your Navigation.tsx component. Its only job will be to check the URL when the page loads and clean it up if necessary.
+
+Please replace the entire content of your /src/components/Navigation.tsx file one more time with this corrected code. This version contains two separate useEffect hooks, each with a clear purpose.
+
+File to update: /src/components/Navigation.tsx
+
+code
+Tsx
+download
+content_copy
+expand_less
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, User, LogIn, ArrowRight, LogOut } from "lucide-react"; // <-- IMPORT LogOut
+import { ChevronDown, User, LogIn, ArrowRight, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,9 +34,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useNavigate } from "react-router-dom";
 import { useCurrency } from "@/context/CurrencyContext";
-import { supabase } from "@/lib/supabaseClient"; // <-- IMPORT SUPABASE CLIENT
-import { AuthDialog } from "@/components/AuthDialog"; // <-- IMPORT THE NEW DIALOG
-import type { User as SupabaseUser } from "@supabase/supabase-js"; // <-- IMPORT USER TYPE
+import { supabase } from "@/lib/supabaseClient";
+import { AuthDialog } from "@/components/AuthDialog";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 // Tři hlavní hry
 const mainGameHostings = [
@@ -46,38 +64,47 @@ const otherHostings = [
 export const Navigation = () => {
   const navigate = useNavigate();
   const { selectedCurrency, setSelectedCurrency, availableCurrencies } = useCurrency();
-  
-  // --- NEW AUTHENTICATION STATE ---
   const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
 
-useEffect(() => {
-  const getSession = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    setUser(session?.user ?? null);
-  };
-  getSession();
+  // This hook sets up a listener to keep the user state in sync (login/logout)
+  useEffect(() => {
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+    getSession();
 
-  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-    setUser(session?.user ?? null);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
 
-  
-    if (_event === 'SIGNED_IN' && window.location.hash.includes('access_token')) {
-        // Replaces the URL in the history, so the back button works correctly
-        navigate('/', { replace: true });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // --- NEW, CORRECTED HOOK ---
+  // This hook runs ONLY on page load to clean the URL after an OAuth redirect.
+  useEffect(() => {
+    if (window.location.hash.includes('access_token')) {
+      navigate('/', { replace: true });
     }
-   
-  });
+  }, [navigate]);
+  // --- END OF NEW HOOK ---
 
-  return () => subscription.unsubscribe();
-}, [navigate]); // <-- ADD navigate TO THE DEPENDENCY ARRAY
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const handleLinkClick = (path: string) => {
+    navigate(path);
+  };
   
   const getConvertedPrice = (basePrice: number) => {
     return (basePrice * selectedCurrency.rate).toFixed(2);
   };
 
   return (
-    <> {/* <-- WRAP IN FRAGMENT */}
+    <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-primary/20 via-primary/10 to-transparent backdrop-blur-lg border-b border-primary/30">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -90,8 +117,7 @@ useEffect(() => {
           </div>
 
           <NavigationMenu className="hidden md:flex">
-            {/* ... your existing NavigationMenuList ... */}
-              <NavigationMenuList>
+            <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">
                   Game Hostings
@@ -171,7 +197,6 @@ useEffect(() => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* --- NEW CONDITIONAL AUTH BUTTONS --- */}
             {user ? (
               <div className="flex items-center space-x-2">
                  <span className="text-sm text-muted-foreground hidden sm:inline">Welcome!</span>
@@ -183,13 +208,34 @@ useEffect(() => {
                 <Button size="sm" onClick={() => setAuthDialogOpen(true)} className="flex items-center space-x-2 bg-gradient-primary hover:shadow-glow-primary"><User className="h-4 w-4" /><span>Sign Up</span></Button>
               </div>
             )}
-            {/* --- END CONDITIONAL AUTH BUTTONS --- */}
           </div>
         </div>
       </nav>
-      {/* --- RENDER THE DIALOG --- */}
       <AuthDialog open={isAuthDialogOpen} onOpenChange={setAuthDialogOpen} />
     </>
   );
 };
+Why This Will Work
 
+Immediate Check: The new useEffect hook runs as soon as the Navigation component loads. When you are redirected back from Google, this is the first thing that happens.
+
+Direct URL Manipulation: It directly checks window.location.hash for the Supabase token. If it's there, it immediately cleans the URL.
+
+Separation of Concerns: Your other useEffect hook is still responsible for listening to auth changes (like logging out or a session expiring), which is its correct job.
+
+Final Steps
+
+Please save this updated file and push it to GitHub again.
+
+code
+Bash
+download
+content_copy
+expand_less
+IGNORE_WHEN_COPYING_START
+IGNORE_WHEN_COPYING_END
+git add .
+git commit -m "Fix: Correctly handle URL cleanup after OAuth redirect"
+git push
+
+This time, after the deployment finishes, the redirect should work perfectly, and the URL will be clean. Thank you again for your patience as we sort this out

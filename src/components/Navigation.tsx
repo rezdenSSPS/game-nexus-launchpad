@@ -1,21 +1,3 @@
-You are absolutely right, and I am very sorry for the continued trouble. Thank you for your patience and for reporting back. This behavior means my previous assumption was wrong, and the URL hash isn't being cleared as expected.
-
-Let's use a more direct and reliable approach. The problem is that the onAuthStateChange listener might not fire at the exact moment the component renders with the new URL. The correct way is to check for the URL hash immediately when the component loads, separate from the authentication listener.
-
-The Corrected Fix: Clean the URL on Page Load
-
-We will add a second, dedicated useEffect hook to your Navigation.tsx component. Its only job will be to check the URL when the page loads and clean it up if necessary.
-
-Please replace the entire content of your /src/components/Navigation.tsx file one more time with this corrected code. This version contains two separate useEffect hooks, each with a clear purpose.
-
-File to update: /src/components/Navigation.tsx
-
-code
-Tsx
-download
-content_copy
-expand_less
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, User, LogIn, ArrowRight, LogOut } from "lucide-react";
@@ -215,27 +197,3 @@ export const Navigation = () => {
     </>
   );
 };
-Why This Will Work
-
-Immediate Check: The new useEffect hook runs as soon as the Navigation component loads. When you are redirected back from Google, this is the first thing that happens.
-
-Direct URL Manipulation: It directly checks window.location.hash for the Supabase token. If it's there, it immediately cleans the URL.
-
-Separation of Concerns: Your other useEffect hook is still responsible for listening to auth changes (like logging out or a session expiring), which is its correct job.
-
-Final Steps
-
-Please save this updated file and push it to GitHub again.
-
-code
-Bash
-download
-content_copy
-expand_less
-IGNORE_WHEN_COPYING_START
-IGNORE_WHEN_COPYING_END
-git add .
-git commit -m "Fix: Correctly handle URL cleanup after OAuth redirect"
-git push
-
-This time, after the deployment finishes, the redirect should work perfectly, and the URL will be clean. Thank you again for your patience as we sort this out

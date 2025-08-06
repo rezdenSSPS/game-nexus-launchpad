@@ -30,7 +30,7 @@ export const TrustpilotSection = () => {
             Rated <span className="text-green-400">Excellent</span> by Over
           </h2>
           <p className="text-6xl font-bold mb-6 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-            1000+ Happy Customers
+            100+ Happy Customers
           </p>
           
           <div className="flex items-center justify-center space-x-2 mb-8">
@@ -50,7 +50,7 @@ export const TrustpilotSection = () => {
           
           <div className="grid md:grid-cols-3 gap-6 mb-10">
             <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-6 rounded-lg border border-primary/30 transform transition-transform hover:scale-105 hover:shadow-glow-primary">
-              <div className="text-3xl font-bold text-primary">50,000+</div>
+              <div className="text-3xl font-bold text-primary">500+</div>
               <div className="text-sm text-muted-foreground mt-1">Hosted Servers</div>
             </div>
             <div className="bg-gradient-to-br from-accent/10 to-primary/10 p-6 rounded-lg border border-accent/30 transform transition-transform hover:scale-105 hover:shadow-glow-accent">

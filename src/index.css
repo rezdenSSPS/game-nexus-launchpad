@@ -9,10 +9,10 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Gaming-inspired color palette */
-    --background: 224 24% 8%;
-    --foreground: 0 0% 95%;
+     --background: 230 60% 10%; /* The new dark "night blue" */
+    --foreground: 210 40% 98%; /* Main text color, already off-white */
 
-    --card: 224 18% 12%;
+    --card: 230 50% 15%; /* A slightly lighter blue for cards */
     --card-foreground: 0 0% 95%;
 
     --popover: 224 18% 12%;

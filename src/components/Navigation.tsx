@@ -51,28 +51,26 @@ export const Navigation = () => {
   const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
 
-  useEffect(() => {
-    const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-    };
-    getSession();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
+useEffect(() => {
+  const getSession = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    setUser(session?.user ?? null);
   };
-  // --- END NEW AUTHENTICATION STATE ---
+  getSession();
 
-  const handleLinkClick = (path: string) => {
-    navigate(path);
-  };
+  const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    setUser(session?.user ?? null);
+
+  
+    if (_event === 'SIGNED_IN' && window.location.hash.includes('access_token')) {
+        // Replaces the URL in the history, so the back button works correctly
+        navigate('/', { replace: true });
+    }
+   
+  });
+
+  return () => subscription.unsubscribe();
+}, [navigate]); // <-- ADD navigate TO THE DEPENDENCY ARRAY
   
   const getConvertedPrice = (basePrice: number) => {
     return (basePrice * selectedCurrency.rate).toFixed(2);

@@ -1,3 +1,4 @@
+import { useEffect } from "react"; // <-- IMPORT useEffect
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -5,9 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useCurrency } from "@/context/CurrencyContext";
 
-// Zde vložíme kompletní seznam všech vašich her
 const allGamesList = [
-    // Tyto slugy a logoUrl musí odpovídat vašim souborům!
     { name: "Minecraft", price: 2.00, slug: "minecraft", logoUrl: "/fotky/minecraft.webp" },
     { name: "FiveM", price: 6.00, slug: "fivem", logoUrl: "/fotky/fivem.webp" },
     { name: "Rust", price: 4.00, slug: "rust", logoUrl: "/fotky/rust.webp" },
@@ -34,6 +33,13 @@ const allGamesList = [
 const AllGamesPage = () => {
     const navigate = useNavigate();
     const { selectedCurrency } = useCurrency();
+
+    // --- THIS IS THE NEW CODE ---
+    // This hook runs once when the component loads and scrolls the window to the top.
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    // --- END OF NEW CODE ---
 
     const getConvertedPrice = (basePrice: number) => {
         return (basePrice * selectedCurrency.rate).toFixed(2);

@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useNavigate } from "react-router-dom";
 import { Github, Twitter, MessageCircle } from "lucide-react";
 
 export const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12">
@@ -10,7 +12,11 @@ export const Footer = () => {
         <div className="text-center mb-12">
           <h3 className="text-3xl font-bold mb-4">Ready to Start Gaming?</h3>
           <p className="text-muted-foreground mb-6">Join thousands of satisfied customers hosting with us</p>
-          <Button size="lg" className="bg-gradient-primary hover:shadow-glow-primary transition-all duration-300">
+          <Button 
+            size="lg" 
+            className="bg-gradient-primary hover:shadow-glow-primary transition-all duration-300"
+            onClick={() => navigate('/games')} // <-- ADD THIS LINE
+          >
             Start Your Server Now
           </Button>
         </div>

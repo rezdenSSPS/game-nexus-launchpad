@@ -49,7 +49,7 @@ export const Navigation = () => {
   const [isAuthDialogOpen, setAuthDialogOpen] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
 
-  // This hook sets up a listener to keep the user state in sync (login/logout)
+  // This hook handles listening for login/logout events to update the UI
   useEffect(() => {
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -64,14 +64,13 @@ export const Navigation = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // --- NEW, CORRECTED HOOK ---
-  // This hook runs ONLY on page load to clean the URL after an OAuth redirect.
+  // This hook ONLY handles cleaning the URL after an OAuth redirect
   useEffect(() => {
     if (window.location.hash.includes('access_token')) {
-      navigate('/', { replace: true });
+      const cleanUrl = window.location.origin + window.location.pathname + window.location.search;
+      window.history.replaceState({}, document.title, cleanUrl);
     }
-  }, [navigate]);
-  // --- END OF NEW HOOK ---
+  }, []); // The empty array ensures this runs only once when the component first loads
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -99,7 +98,7 @@ export const Navigation = () => {
           </div>
 
           <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList>
+             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors">
                   Game Hostings
